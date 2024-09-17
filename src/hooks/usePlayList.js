@@ -9,6 +9,9 @@ const usePlayList = () => {
         favorite: []
     })
 
+    const [error, setError] = useState("")
+    const [loading, setLoading] = useState(false)
+
 
 
     const getPlayListById = async(playListId, force=false) => {
@@ -17,7 +20,18 @@ const usePlayList = () => {
             return;
         }
 
-        let result = await getPlaylist(playListId)
+        let result;
+
+        setLoading(true)
+
+        try {
+            result = await getPlaylist(playListId)
+            setError("")
+        } catch (error) {
+            setError(error.response?.data?.error?.message || "Something went wrong")
+        }finally{
+            setLoading(false)
+        }
 
         console.log(result);
 
@@ -87,7 +101,9 @@ const usePlayList = () => {
         recent: getPlaylistByIds(data.recent),
         getPlayListById,
         addToFavorite,
-        addToRecent
+        addToRecent,
+        error,
+        loading
     }
 
 }
