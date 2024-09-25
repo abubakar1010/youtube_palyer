@@ -8,7 +8,7 @@ import { Box, Button, Stack } from "@mui/material";
 import { FaRegPlayCircle } from "react-icons/fa";
 
 const PlayListCard = ({ channelTitle, thumbnails, playListTitle }) => {
-	console.log(playListTitle);
+	// console.log(playListTitle);
 
 	return (
 			<Card sx={{ maxWidth: 330, marginY: 3, marginLeft: 1}}>

@@ -4,6 +4,7 @@ import getPlaylist from "../api/index.js"
 
 const usePlayList = () => {
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const initialState = {
         playList:{},
         recent:[],
@@ -24,7 +25,7 @@ const usePlayList = () => {
         
         if(localStorageData){
             const saveData = JSON.parse(localStorageData)
-            console.log("local", saveData);
+            // console.log("local", saveData);
             setData({...saveData})
         }
     },[])
