@@ -1,16 +1,40 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import getPlaylist from "../api/index.js"
+
 
 const usePlayList = () => {
 
-    const [data, setData] = useState({
+    const initialState = {
         playList:{},
         recent:[],
         favorite: []
-    })
+    }
+
+    const localStorage_key ="pl_data"
+
+    const [data, setData] = useState(initialState)
 
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(false)
+
+    useEffect( () => {
+        const localStorageData = localStorage.getItem(localStorage_key)
+
+        
+        
+        if(localStorageData){
+            const saveData = JSON.parse(localStorageData)
+            console.log("local", saveData);
+            setData({...saveData})
+        }
+    },[])
+
+    useEffect( () => {
+
+        if(initialState !== data){
+        localStorage.setItem(localStorage_key, JSON.stringify(data))
+        }
+    },[data, initialState])
 
 
 
@@ -20,57 +44,27 @@ const usePlayList = () => {
             return;
         }
 
-        let result;
 
         setLoading(true)
+        
 
         try {
-            result = await getPlaylist(playListId)
+            const playList = await getPlaylist(playListId)
+            // console.log("playList form hooks", playList);
+            
             setError("")
+            setData( prev => ({
+                ...prev,
+                playList:{
+                    ...prev.playList,
+                    [playListId]: playList
+                }
+            }))
         } catch (error) {
             setError(error.response?.data?.error?.message || "Something went wrong")
         }finally{
             setLoading(false)
         }
-
-        console.log(result);
-
-        let cid, ct;
-
-        result = result.items.map((items) => {
-			const {
-				channelId,
-				title,
-				description,
-				thumbnails: { medium },
-				channelTitle,
-			} = items.snippet;
-
-            if(!cid) cid = channelId
-            if(!ct) ct = channelTitle
-			return {
-				channelId: cid,
-				title,
-				description,
-				thumbnails: medium,
-				channelTitle: ct,
-				contentDetails: items.contentDetails,
-			};
-		});
-        
-
-        setData( (prev) => ({
-            ...prev,
-            playList:{
-                ...prev.playList,
-                [playListId]: {
-                    items: result,
-                    playListId: playListId,
-                    channelId: cid,
-                    channelTitle: ct
-                }
-            }
-        }))
 
     }
 
