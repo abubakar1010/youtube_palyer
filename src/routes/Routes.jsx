@@ -13,9 +13,10 @@ const routes = createBrowserRouter([
                 element: <App />
             },
             {
-                path: "router",
+                path: "playlist/:playlistId",
                 element: <DisplayPlaylist />
-            }
+            },
+            
         ]
     }
 ])

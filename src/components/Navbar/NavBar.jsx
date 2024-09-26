@@ -7,14 +7,9 @@ import Typography from '@mui/material/Typography';
 import { Container } from '@mui/material';
 import { useState } from 'react';
 import PlaylistForm from '../PlaylistForm/PlaylistForm.jsx';
-import usePlayList from '../../hooks/usePlayList.js';
-// import usePlayList from '../../hooks/usePlayList.js';
-// import IconButton from '@mui/material/IconButton';
-// import MenuIcon from '@mui/icons-material/Menu';
 
 const NavBar = () => {
 
-  const {getPlayListById} = usePlayList()
 
     const [open, setOpen] = useState(false);
 
@@ -35,7 +30,7 @@ const NavBar = () => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Youtube Player
           </Typography>
-          <PlaylistForm handleClickOpen={handleClickOpen} handleClose={handleClose} open={open} getPlaylistById={getPlayListById} />
+          <PlaylistForm handleClickOpen={handleClickOpen} handleClose={handleClose} open={open} />
           
         </Toolbar>
         </Container>

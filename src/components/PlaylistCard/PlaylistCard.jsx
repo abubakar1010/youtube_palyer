@@ -6,9 +6,10 @@ import Typography from "@mui/material/Typography";
 import CardActionArea from "@mui/material/CardActionArea";
 import { Box, Button, Stack } from "@mui/material";
 import { FaRegPlayCircle } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
-const PlayListCard = ({ channelTitle, thumbnails, playListTitle }) => {
-	// console.log(playListTitle);
+const PlayListCard = ({ channelTitle, thumbnails, playListTitle, playlistId }) => {
+	// console.log(playlistId);
 
 	return (
 			<Card sx={{ maxWidth: 330, marginY: 3, marginLeft: 1}}>
@@ -20,20 +21,21 @@ const PlayListCard = ({ channelTitle, thumbnails, playListTitle }) => {
 						alt="green iguana"
 					/>
 					<CardContent sx={{display: "flex", flexDirection: "column"}} >
-						<Typography gutterBottom variant="h5" component="div">
+						<Typography gutterBottom variant="h5" component="div" sx={{minHeight: 60}}>
 							{playListTitle.slice(0, 40)} ....
 						</Typography>
 						<Box sx={{}}></Box>
-						<Typography variant="h6" sx={{ color: "text.secondary", py: "15",  }}>
+						<Typography variant="h6" sx={{ color: "text.secondary", py: "15", minHeight: 35  }}>
 							{channelTitle}
 						</Typography>
-						<Stack direction="row" alignItems={"center"} justifyContent={"right"} sx={{marginTop: 2,
-						}} >
-						<FaRegPlayCircle style={{fontSize: "20px", color: "blue"}}  />
-						<Button sx={{textAlign: "right"}}>
+						<Button  to={`playlist/${playlistId}`} component={Link} sx={{ marginTop:"20px", width: "max-content", marginLeft: "auto"}}>
+						<Stack direction="row" alignItems={"center"} justifyContent={"right"} gap={1} >
+						<FaRegPlayCircle style={{fontSize: "20px", color: "purple"}}  />
+						<Typography sx={{}}>
 							View Full Playlist
-						</Button>
+						</Typography>
 						</Stack>
+						</Button>
 					</CardContent>
 				</CardActionArea>
 			</Card>

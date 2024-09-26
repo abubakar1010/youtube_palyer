@@ -87,6 +87,9 @@ const playlistModel = persist({
             setLoading(false)
         }
     })
+},
+{
+    storage: "localStorage"
 })
 
 export default playlistModel

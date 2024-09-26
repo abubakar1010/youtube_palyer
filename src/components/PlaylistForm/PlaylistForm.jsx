@@ -7,9 +7,12 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useState } from 'react';
+import { useStoreActions } from 'easy-peasy';
 
-const PlaylistForm = ({handleClickOpen, handleClose, open, getPlaylistById}) =>  {
+const PlaylistForm = ({handleClickOpen, handleClose, open}) =>  {
 
+
+  const {getPlaylist} = useStoreActions( action => action.playlists)
 
   const [playlistId, setPlaylistId] = useState('')
 
@@ -19,7 +22,7 @@ const PlaylistForm = ({handleClickOpen, handleClose, open, getPlaylistById}) => 
     if(!playlistId.trim()){
       alert("insert a valid id")
     }else{
-      getPlaylistById(playlistId)
+      getPlaylist(playlistId)
       setPlaylistId("")
       handleClose()
     }
